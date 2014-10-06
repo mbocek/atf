@@ -80,7 +80,7 @@ public class TestRunner {
 
 	private void configure() {
 		TestClassContext testClassContext = new TestConfigurer()
-													.withClass(ReflectionUtils.classFromName(this.className))
+													.withClass(ReflectionUtils.classForName(this.className))
 													.configure();
 	}
 

@@ -37,7 +37,7 @@ public final class ReflectionUtils {
 	private ReflectionUtils() {
 	}
 	
-	public static Class<?> classFromName(String className) {
+	public static Class<?> classForName(String className) {
 		Class<?> result;
 		try {
 			result = Class.forName(className);
