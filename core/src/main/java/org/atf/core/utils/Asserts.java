@@ -1,5 +1,5 @@
 /*
-Ï * Licensed to the Apache Software Foundation (ASF) under one
+ * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements. See the NOTICE file
  * distributed with this work for additional information
  * regarding copyright ownership. The ASF licenses this file
@@ -16,21 +16,30 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.atf;
+package org.atf.core.utils;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-import java.lang.annotation.Documented;
+import java.util.Iterator;
 
 /**
- * Annotation for marking test.
  * @author Michal Bocek
  * @since 1.0.0
  */
-@Documented
-@Target(ElementType.METHOD)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Test {
+public final class Asserts {
+
+	private Asserts() {
+	}
+	
+	public static void checkForNextItem(String message, Iterator<?> iterator) {
+		if (!iterator.hasNext()) {
+			throw new IllegalArgumentException(message);
+		}
+	}
+	
+	public static void checkForException(String message, Throwable exception) {
+		if (exception instanceof ClassNotFoundException) {
+			throw new IllegalStateException(message, exception);
+		} else {
+			throw new RuntimeException(message, exception);
+		}
+	}
 }

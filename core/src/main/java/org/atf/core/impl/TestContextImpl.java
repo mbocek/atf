@@ -1,5 +1,5 @@
 /*
-Ï * Licensed to the Apache Software Foundation (ASF) under one
+ * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements. See the NOTICE file
  * distributed with this work for additional information
  * regarding copyright ownership. The ASF licenses this file
@@ -16,21 +16,30 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.atf;
+package org.atf.core.impl;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-import java.lang.annotation.Documented;
+import java.lang.reflect.Method;
+
+import org.atf.core.api.TestContext;
 
 /**
- * Annotation for marking test.
  * @author Michal Bocek
  * @since 1.0.0
  */
-@Documented
-@Target(ElementType.METHOD)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Test {
+public class TestContextImpl implements TestContext {
+
+	private Method method;
+
+	public TestContextImpl(Method method) {
+		this.method = method;
+	}
+	
+	/* 
+	 * (non-Javadoc)
+	 * @see org.atf.core.api.TestContext#getMethod()
+	 */
+	@Override
+	public Method getTestMethod() {
+		return this.method;
+	}
 }

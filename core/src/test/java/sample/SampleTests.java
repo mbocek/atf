@@ -1,5 +1,5 @@
 /*
-Ï * Licensed to the Apache Software Foundation (ASF) under one
+ * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements. See the NOTICE file
  * distributed with this work for additional information
  * regarding copyright ownership. The ASF licenses this file
@@ -16,21 +16,18 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.atf;
+package sample;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-import java.lang.annotation.Documented;
+import org.atf.Test;
 
 /**
- * Annotation for marking test.
  * @author Michal Bocek
  * @since 1.0.0
  */
-@Documented
-@Target(ElementType.METHOD)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Test {
+public class SampleTests {
+
+	@Test
+	public void test() {
+		System.out.println("Test");
+	}
 }

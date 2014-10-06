@@ -1,5 +1,5 @@
 /*
-Ï * Licensed to the Apache Software Foundation (ASF) under one
+ * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements. See the NOTICE file
  * distributed with this work for additional information
  * regarding copyright ownership. The ASF licenses this file
@@ -16,21 +16,35 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.atf;
+package org.atf.core;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-import java.lang.annotation.Documented;
+import java.lang.reflect.Method;
+import java.util.Collection;
+
+import org.atf.core.api.TestClassContext;
+import org.atf.core.impl.TestClassContextImpl;
+import org.atf.core.utils.ReflectionUtils;
 
 /**
- * Annotation for marking test.
  * @author Michal Bocek
  * @since 1.0.0
  */
-@Documented
-@Target(ElementType.METHOD)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Test {
+public class TestConfigurer {
+
+	private Class<?> testClass;
+	
+	public TestConfigurer withClass(Class<?> testClass) {
+		this.testClass = testClass;
+		return this;
+	}
+
+	public TestClassContext configure() {
+		return buildTestContext(new TestClassContextImpl(), this.testClass);
+	}
+
+	private TestClassContext buildTestContext(TestClassContextImpl testClassContext, Class<?> testClass) {
+		Collection<Method> testMethods = ReflectionUtils.getTestMethods(testClass);
+		return testClassContext;
+	}
+
 }
