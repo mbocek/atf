@@ -60,8 +60,8 @@ public class TestRunner {
 	
 	public static void main(String[] args) {
 		self.initialize(Arrays.asList(args));
-		TestClassContext testclassContext = self.configure();
-		self.excute(testclassContext);
+		TestClassContext testClassContext = self.configure();
+		self.excute(testClassContext);
 	}
 
 	private void initialize(List<String> args) {
@@ -80,8 +80,8 @@ public class TestRunner {
 
 	private TestClassContext configure() {
 		return new TestConfigurer()
-									.withClass(ReflectionUtils.classForName(this.className))
-		    						.configure();
+						.withClass(ReflectionUtils.classForName(this.className))
+		    			.configure();
 	}
 
 	private void excute(TestClassContext testClassContext) {

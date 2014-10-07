@@ -16,39 +16,22 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.atf.core;
+package org.atf.core.utils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
-import org.atf.core.api.TestClassContext;
-import org.atf.core.api.TestContext;
-import org.atf.core.utils.RuntimeUtils;
 
 /**
  * @author Michal Bocek
  * @since 1.0.0
  */
-public class TestExecutor {
+public final class RuntimeUtils {
 
-    private TestClassContext testClassContext;
-
-	public TestExecutor withTestClassContext(TestClassContext testClassContext) {
-		this.testClassContext = testClassContext;
-		return this;
+	private RuntimeUtils() {
 	}
 
-    public void execute() {
-        for (TestContext testContext : testClassContext.getTestContexts()) {
-			executeMethod(testContext.getTestMethod());
-		}
-    }
-
-	private void executeMethod(Method testMethod) {
-		try {
-			RuntimeUtils.invokeTestMethod(testMethod);
-		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			e.printStackTrace();
-		}	
+	public static void invokeTestMethod(Method testMethod) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		Method testObject = testMethod.getClass().newInstance();
+		testMethod.invoke(testObject, new Object[] {});
 	}
 }

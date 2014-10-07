@@ -51,7 +51,7 @@ public final class ReflectionUtils {
 	}
 
 	public static Collection<Method> getTestMethods(Class<?> testClass) {
-		List<Method> methods = new ArrayList(Arrays.asList(testClass.getMethods()));
+		List<Method> methods = new ArrayList<Method>(Arrays.asList(testClass.getMethods()));
 		Iterator<Method> iterator = methods.iterator();
 		while(iterator.hasNext()) {
 			Method method = iterator.next();

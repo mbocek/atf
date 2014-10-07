@@ -18,7 +18,6 @@
  */
 package org.atf.core.api;
 
-import java.lang.reflect.Method;
 import java.util.Collection;
 
 /**
@@ -27,10 +26,6 @@ import java.util.Collection;
  */
 public interface TestClassContext {
 	
-	/**
-	 * Gets all test methods on class level.
-	 *
-	 * @return the methods
-	 */
-	Collection<Method> getTestMethods();
+	Collection<TestContext> getTestContexts();
+
 }

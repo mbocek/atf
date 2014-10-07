@@ -18,8 +18,8 @@
  */
 package org.atf.core.impl;
 
-import java.lang.reflect.Method;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 
 import org.atf.core.api.TestClassContext;
@@ -45,9 +45,8 @@ public class TestClassContextImpl implements TestClassContext {
 	 * @see org.atf.core.api.TestClassContext#getTestMethods()
 	 */
 	@Override
-	public Collection<Method> getTestMethods() {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<TestContext> getTestContexts() {
+		return Collections.unmodifiableCollection(testContexts);
 	}
 
 }
