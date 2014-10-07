@@ -21,6 +21,7 @@ package org.atf.core.utils;
 import static org.atf.core.utils.Asserts.checkForException;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
@@ -50,7 +51,7 @@ public final class ReflectionUtils {
 	}
 
 	public static Collection<Method> getTestMethods(Class<?> testClass) {
-		List<Method> methods = Arrays.asList(testClass.getMethods());
+		List<Method> methods = new ArrayList(Arrays.asList(testClass.getMethods()));
 		Iterator<Method> iterator = methods.iterator();
 		while(iterator.hasNext()) {
 			Method method = iterator.next();

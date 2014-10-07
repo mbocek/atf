@@ -1,1 +1,12 @@
+# eclipse files
+.settings
+.classpath
+.project
+.springBeans
+
+# maven files
 target
+
+# idea files
+.idea
+application.iml

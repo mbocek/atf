@@ -24,7 +24,7 @@ import org.atf.Test;
  * @author Michal Bocek
  * @since 1.0.0
  */
-public class SampleTests {
+public class SampleTest {
 
 	@Test
 	public void test() {
