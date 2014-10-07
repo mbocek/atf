@@ -27,7 +27,12 @@ import org.atf.Test;
 public class SampleTest {
 
 	@Test
+	public void test1() {
+		System.out.println("Test method 1 executed");
+	}
+	
+	@Test
 	public void test() {
-		System.out.println("Test");
+		System.out.println("Test method 2 executed");
 	}
 }
