@@ -31,7 +31,7 @@ public final class RuntimeUtils {
 	}
 
 	public static void invokeTestMethod(Method testMethod) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		Method testObject = testMethod.getClass().newInstance();
+		Object testObject = testMethod.getDeclaringClass().newInstance();
 		testMethod.invoke(testObject, new Object[] {});
 	}
 }
