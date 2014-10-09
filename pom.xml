@@ -11,6 +11,7 @@
     <name>ATF: Another Test Framework</name>
     
 	<modules>
+		<module>annotation</module>
 		<module>core</module>
 	</modules>
 

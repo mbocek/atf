@@ -38,4 +38,12 @@
             </plugin>
 	    </plugins>
 	</build>
+	
+	<dependencies>
+		<dependency>
+			<groupId>org.atf</groupId>
+			<artifactId>annotation</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
 </project>
