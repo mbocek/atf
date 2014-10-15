@@ -28,6 +28,8 @@ import org.atf.core.api.TestContext;
  */
 public class TestContextImpl implements TestContext {
 
+	private static final String DOT = ".";
+	
 	private Method method;
 
 	public TestContextImpl(Method method) {
@@ -41,5 +43,15 @@ public class TestContextImpl implements TestContext {
 	@Override
 	public Method getTestMethod() {
 		return this.method;
+	}
+
+	@Override
+	public String getName() {
+		return method.getName();
+	}
+
+	@Override
+	public String getFullName() {
+		return method.getDeclaringClass().getCanonicalName() + DOT + method.getName();
 	}
 }

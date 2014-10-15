@@ -27,4 +27,8 @@ import java.lang.reflect.Method;
 public interface TestContext {
 
 	Method getTestMethod();
+	
+	String getName();
+	
+	String getFullName();
 }

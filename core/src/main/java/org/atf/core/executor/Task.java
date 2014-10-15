@@ -16,43 +16,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.atf.core.utils;
-
-import java.util.Iterator;
+package org.atf.core.executor;
 
 /**
  * @author Michal Bocek
  * @since 1.0.0
  */
-public final class Asserts {
-
-	private Asserts() {
-	}
-	
-	/**
-	 * If no next item in iterator throw IllegalArgumentException.
-	 *
-	 * @param message the message
-	 * @param iterator the iterator
-	 * @throws IllegalArgumentException
-	 */
-	public static void checkForNextItem(String message, Iterator<?> iterator) {
-		if (!iterator.hasNext()) {
-			throw new IllegalArgumentException(message);
-		}
-	}
-	
-	/**
-	 * Convert checked exception to unchecked.
-	 *
-	 * @param message the message
-	 * @param exception the exception
-	 */
-	public static void convertCheckedException(String message, Throwable exception) {
-		if (exception instanceof ClassNotFoundException) {
-			throw new IllegalStateException(message, exception);
-		} else {
-			throw new RuntimeException(message, exception);
-		}
-	}
+public abstract class Task implements Runnable {
 }

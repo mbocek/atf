@@ -18,7 +18,7 @@
  */
 package org.atf.core.utils;
 
-import static org.atf.core.utils.Asserts.checkForException;
+import static org.atf.core.utils.Asserts.convertCheckedException;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ public final class ReflectionUtils {
 		try {
 			result = Class.forName(className);
 		} catch (ClassNotFoundException e) {
-			checkForException(String.format("Class %s not found", className), e);
+			convertCheckedException(String.format("Class %s not found", className), e);
 			// never occurs - runtime exception is thrown
 			result = null;
 		}
