@@ -25,6 +25,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.atf.core.api.TestClassContext;
+import org.atf.core.api.TestContext;
 import org.atf.core.utils.ReflectionUtils;
 
 /**
@@ -60,8 +61,8 @@ public class TestRunner {
 	
 	public static void main(String[] args) {
 		self.initialize(Arrays.asList(args));
-		TestClassContext testClassContext = self.configure();
-		self.excute(testClassContext);
+		TestContext testContext = self.configure();
+		self.excute(testContext);
 	}
 
 	private void initialize(List<String> args) {
@@ -78,13 +79,13 @@ public class TestRunner {
 		}
 	}
 
-	private TestClassContext configure() {
+	private TestContext configure() {
 		return new TestConfigurer()
 						.withClass(ReflectionUtils.classForName(this.className))
 		    			.configure();
 	}
 
-	private void excute(TestClassContext testClassContext) {
-	    new TestExecutor().withTestClassContext(testClassContext).execute();
+	private void excute(TestContext testContext) {
+	    new TestExecutor().withTestContext(testContext).execute();
 	}
 }

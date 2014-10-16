@@ -18,17 +18,15 @@
  */
 package org.atf.core.api;
 
-import java.lang.reflect.Method;
+import java.util.Collection;
 
 /**
+ * The Interface TestContext.
+ *
  * @author Michal Bocek
  * @since 1.0.0
  */
 public interface TestContext {
 
-	Method getTestMethod();
-	
-	String getName();
-	
-	String getFullName();
+	Collection<TestClassContext> getTestClassContexts();
 }

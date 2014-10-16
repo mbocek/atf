@@ -23,6 +23,7 @@ import java.lang.reflect.Method;
 
 import org.atf.core.api.TestClassContext;
 import org.atf.core.api.TestContext;
+import org.atf.core.api.TestMethodContext;
 import org.atf.core.utils.RuntimeUtils;
 
 /**
@@ -31,16 +32,18 @@ import org.atf.core.utils.RuntimeUtils;
  */
 public class TestExecutor {
 
-    private TestClassContext testClassContext;
+    private TestContext testContext;
 
-	public TestExecutor withTestClassContext(TestClassContext testClassContext) {
-		this.testClassContext = testClassContext;
+	public TestExecutor withTestContext(TestContext testContext) {
+		this.testContext = testContext;
 		return this;
 	}
 
     public void execute() {
-        for (TestContext testContext : testClassContext.getTestContexts()) {
-			executeMethod(testContext.getTestMethod());
+        for (TestClassContext testClassContext : testContext.getTestClassContexts()) {
+            for (TestMethodContext testMethodContext : testClassContext.getTestMethodContexts()) {
+            	executeMethod(testMethodContext.getTestMethod());
+            }
 		}
     }
 

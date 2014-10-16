@@ -18,35 +18,40 @@
  */
 package org.atf.core.impl;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
+import java.lang.reflect.Method;
 
-import org.atf.core.api.TestClassContext;
 import org.atf.core.api.TestMethodContext;
 
 /**
  * @author Michal Bocek
  * @since 1.0.0
  */
-public class TestClassContextImpl implements TestClassContext {
+public class TestMethodContextImpl implements TestMethodContext {
 
-	private Collection<TestMethodContext> testContexts;
+	private static final String DOT = ".";
 	
-	public TestClassContextImpl() {
-		testContexts = new HashSet<TestMethodContext>();
+	private Method method;
+
+	public TestMethodContextImpl(Method method) {
+		this.method = method;
 	}
 	
-	public void addTestContext(TestMethodContext testContext) {
-		this.testContexts.add(testContext);
-	}
 	/* 
 	 * (non-Javadoc)
-	 * @see org.atf.core.api.TestClassContext#getTestMethods()
+	 * @see org.atf.core.api.TestContext#getMethod()
 	 */
 	@Override
-	public Collection<TestMethodContext> getTestMethodContexts() {
-		return Collections.unmodifiableCollection(testContexts);
+	public Method getTestMethod() {
+		return this.method;
 	}
 
+	@Override
+	public String getName() {
+		return method.getName();
+	}
+
+	@Override
+	public String getFullName() {
+		return method.getDeclaringClass().getCanonicalName() + DOT + method.getName();
+	}
 }

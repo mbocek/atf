@@ -18,8 +18,11 @@
  */
 package org.atf.core.impl;
 
-import java.lang.reflect.Method;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 
+import org.atf.core.api.TestClassContext;
 import org.atf.core.api.TestContext;
 
 /**
@@ -28,30 +31,19 @@ import org.atf.core.api.TestContext;
  */
 public class TestContextImpl implements TestContext {
 
-	private static final String DOT = ".";
+	private Collection<TestClassContext> testClassContexts;
 	
-	private Method method;
-
-	public TestContextImpl(Method method) {
-		this.method = method;
+	public TestContextImpl() {
+		testClassContexts = new HashSet<TestClassContext>();
 	}
 	
-	/* 
-	 * (non-Javadoc)
-	 * @see org.atf.core.api.TestContext#getMethod()
-	 */
-	@Override
-	public Method getTestMethod() {
-		return this.method;
+	public void addTestClassContext(TestClassContext testClassContext) {
+		this.testClassContexts.add(testClassContext);
 	}
 
 	@Override
-	public String getName() {
-		return method.getName();
+	public Collection<TestClassContext> getTestClassContexts() {
+		return Collections.unmodifiableCollection(testClassContexts);
 	}
 
-	@Override
-	public String getFullName() {
-		return method.getDeclaringClass().getCanonicalName() + DOT + method.getName();
-	}
 }

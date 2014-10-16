@@ -26,6 +26,6 @@ import java.util.Collection;
  */
 public interface TestClassContext {
 	
-	Collection<TestContext> getTestContexts();
+	Collection<TestMethodContext> getTestMethodContexts();
 
 }

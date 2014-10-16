@@ -16,37 +16,19 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.atf.core.impl;
+package org.atf.core.api;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-
-import org.atf.core.api.TestClassContext;
-import org.atf.core.api.TestMethodContext;
+import java.lang.reflect.Method;
 
 /**
  * @author Michal Bocek
  * @since 1.0.0
  */
-public class TestClassContextImpl implements TestClassContext {
+public interface TestMethodContext {
 
-	private Collection<TestMethodContext> testContexts;
+	Method getTestMethod();
 	
-	public TestClassContextImpl() {
-		testContexts = new HashSet<TestMethodContext>();
-	}
+	String getName();
 	
-	public void addTestContext(TestMethodContext testContext) {
-		this.testContexts.add(testContext);
-	}
-	/* 
-	 * (non-Javadoc)
-	 * @see org.atf.core.api.TestClassContext#getTestMethods()
-	 */
-	@Override
-	public Collection<TestMethodContext> getTestMethodContexts() {
-		return Collections.unmodifiableCollection(testContexts);
-	}
-
+	String getFullName();
 }

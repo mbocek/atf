@@ -22,8 +22,10 @@ import java.lang.reflect.Method;
 import java.util.Collection;
 
 import org.atf.core.api.TestClassContext;
+import org.atf.core.api.TestContext;
 import org.atf.core.impl.TestClassContextImpl;
 import org.atf.core.impl.TestContextImpl;
+import org.atf.core.impl.TestMethodContextImpl;
 import org.atf.core.utils.ReflectionUtils;
 
 /**
@@ -39,14 +41,16 @@ public class TestConfigurer {
 		return this;
 	}
 
-	public TestClassContext configure() {
-		return buildTestContext(new TestClassContextImpl(), this.testClass);
+	public TestContext configure() {
+		TestContextImpl testContextImpl = new TestContextImpl();
+		testContextImpl.addTestClassContext(buildTestClassContext(new TestClassContextImpl(), this.testClass));
+		return testContextImpl;
 	}
 
-	private TestClassContext buildTestContext(TestClassContextImpl testClassContext, Class<?> testClass) {
+	private TestClassContext buildTestClassContext(TestClassContextImpl testClassContext, Class<?> testClass) {
 		Collection<Method> testMethods = ReflectionUtils.getTestMethods(testClass);
 		for (Method method : testMethods) {
-			testClassContext.addTestContext(new TestContextImpl(method));
+			testClassContext.addTestContext(new TestMethodContextImpl(method));
 		}
 		return testClassContext;
 	}
