@@ -18,21 +18,32 @@
  */
 package org.atf.core.executor;
 
-import org.atf.core.api.TestMethodContext;
+import java.util.concurrent.ThreadFactory;
 
 /**
+ * The Class ThreadFactoryAdapter.
+ *
  * @author Michal Bocek
  * @since 1.0.0
  */
-public abstract class Task implements Runnable {
-	
-	private TestMethodContext context;
-	
-	public Task(TestMethodContext context) {
-		this.context = context;
+public class ThreadFactoryAdapter implements ThreadFactory {
+
+	private ThreadGroup threadGroup;
+
+	public ThreadFactoryAdapter(ThreadGroup threadGroup) {
+		this.threadGroup = threadGroup;
 	}
 	
-	public String getThreadName() {
-		return context.getName();
+	@Override
+	public Thread newThread(Runnable runnable) {
+		Thread newThread;
+		if (runnable instanceof Task) {
+			Task task = (Task) runnable;
+			newThread = new Thread(threadGroup, runnable, task.getThreadName());
+		} else {
+			throw new IllegalStateException("Internal error: Only tasks can be run!");
+		}
+		return newThread;
 	}
+
 }

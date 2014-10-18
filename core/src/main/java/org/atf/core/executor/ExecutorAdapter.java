@@ -18,21 +18,29 @@
  */
 package org.atf.core.executor;
 
-import org.atf.core.api.TestMethodContext;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * @author Michal Bocek
  * @since 1.0.0
  */
-public abstract class Task implements Runnable {
+public class ExecutorAdapter {
+	private ExecutorService executorService;
 	
-	private TestMethodContext context;
-	
-	public Task(TestMethodContext context) {
-		this.context = context;
+	public ExecutorAdapter(int threadCount, ThreadFactoryAdapter threadFactory) {
+		executorService = Executors.newFixedThreadPool(threadCount, threadFactory);
 	}
 	
-	public String getThreadName() {
-		return context.getName();
+	public void execute(Task task) {
+		executorService.execute(task);
+	}
+	
+	public void forceStop() {
+		List<Runnable> threads = executorService.shutdownNow();
+		for (Runnable runnable : threads) {
+			
+		}		
 	}
 }

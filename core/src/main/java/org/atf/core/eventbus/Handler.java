@@ -16,23 +16,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.atf.core.executor;
+package org.atf.core.eventbus;
 
-import org.atf.core.api.TestMethodContext;
+import org.atf.core.eventbus.event.Event;
 
 /**
  * @author Michal Bocek
  * @since 1.0.0
  */
-public abstract class Task implements Runnable {
-	
-	private TestMethodContext context;
-	
-	public Task(TestMethodContext context) {
-		this.context = context;
-	}
-	
-	public String getThreadName() {
-		return context.getName();
-	}
+public abstract class Handler<T extends Event> {
+
+	public abstract void handleEvent(T event);
 }

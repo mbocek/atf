@@ -16,23 +16,26 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.atf.core.executor;
-
-import org.atf.core.api.TestMethodContext;
+package org.atf.core.eventbus.event;
 
 /**
  * @author Michal Bocek
  * @since 1.0.0
  */
-public abstract class Task implements Runnable {
-	
-	private TestMethodContext context;
-	
-	public Task(TestMethodContext context) {
-		this.context = context;
+public abstract class BaseEvent implements Event {
+
+	private long firedOn;
+
+	public BaseEvent() {
+		this.firedOn = System.currentTimeMillis();
 	}
 	
-	public String getThreadName() {
-		return context.getName();
+	protected long getFiredOn() {
+		return firedOn;
+	}
+
+	@Override
+	public String toString() {
+		return "BaseEvent [firedOn=" + firedOn + "]";
 	}
 }
