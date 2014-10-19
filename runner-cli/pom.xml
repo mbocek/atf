@@ -44,7 +44,6 @@
                     <killAfter>-1</killAfter>
                     <arguments>
                         <argument>-c</argument>
-                        <argument>sample.SampleTest</argument>
                   </arguments>
                 </configuration>
             </plugin>

@@ -24,9 +24,10 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-import org.atf.core.api.TestClassContext;
 import org.atf.core.api.TestContext;
 import org.atf.core.utils.ReflectionUtils;
+import org.atf.runner.cli.parser.CliHelper;
+import org.atf.runner.cli.parser.Command;
 
 /**
  * @author Michal Bocek
@@ -37,32 +38,20 @@ public class TestRunner {
 	private String className;
 	private static TestRunner self = new TestRunner();
 	
-	private enum Command {
-		CLASS("-c", "--class");
-		
-		private String shortCommand;
-		private String longCommand;
-
-		private Command(String shortCommand, String longCommand) {
-			this.shortCommand = shortCommand;
-			this.longCommand = longCommand;
-		}
-		
-		public static Command commandByName(String stringCommand) {
-			for (Command command : Command.values()) {
-				if (command.shortCommand.equals(stringCommand) ||
-						command.longCommand.equals(stringCommand)) {
-					return command;
-				}
-			}
-			throw new IllegalArgumentException("Command not found: " + stringCommand);
-		}
-	}
-	
 	public static void main(String[] args) {
-		self.initialize(Arrays.asList(args));
-		TestContext testContext = self.configure();
-		self.excute(testContext);
+		boolean skipExecution = false;
+		try {
+			self.initialize(Arrays.asList(args));
+		} catch (Throwable e) {
+			System.err.println("Error: " + e.getMessage());
+			CliHelper.showHelp();
+			skipExecution = true;
+		}
+
+		if (!skipExecution) {
+			TestContext testContext = self.configure();
+			self.excute(testContext);
+		}
 	}
 
 	private void initialize(List<String> args) {
@@ -72,7 +61,9 @@ public class TestRunner {
 			Command command = Command.commandByName(stringCommand);
 			switch (command) {
 			case CLASS:
-				checkForNextItem("Missing class name", iterator);
+				if (command.getOption().isRequiredParam()) {
+					checkForNextItem("Missing class name", iterator);
+				}
 				this.className = iterator.next();
 				break;
 			}
