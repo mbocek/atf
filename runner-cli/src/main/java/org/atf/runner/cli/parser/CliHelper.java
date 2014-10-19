@@ -41,11 +41,15 @@ public final class CliHelper {
 		}
 		
 		Collections.sort(cmdLine);
-		System.out.println(cmdLine);
+		String resultCommandLine = "";
+		for (String command : cmdLine) {
+			resultCommandLine += command + " ";
+		}
+		System.out.println(resultCommandLine);
 		
 		for (Command command : Command.values()) {
 			Option option = command.getOption();
-			String message = String.format("\t%s\t%s\t\t%s", option.getShortParam(), option.getLongParam(), option.getDescription());
+			String message = String.format("\t%-5s%-15s%s", option.getShortParam(), option.getLongParam(), option.getDescription());
 			System.out.println(message);			
 		}
 	}
