@@ -16,42 +16,43 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.atf.core;
+package org.atf.runner.cli;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Collection;
 
 import org.atf.core.api.TestClassContext;
 import org.atf.core.api.TestContext;
-import org.atf.core.api.TestMethodContext;
-import org.atf.core.utils.RuntimeUtils;
+import org.atf.core.impl.TestClassContextImpl;
+import org.atf.core.impl.TestContextImpl;
+import org.atf.core.impl.TestMethodContextImpl;
+import org.atf.core.utils.ReflectionUtils;
 
 /**
  * @author Michal Bocek
  * @since 1.0.0
  */
-public class TestExecutor {
+public class TestConfigurer {
 
-    private TestContext testContext;
-
-	public TestExecutor withTestContext(TestContext testContext) {
-		this.testContext = testContext;
+	private Class<?> testClass;
+	
+	public TestConfigurer withClass(Class<?> testClass) {
+		this.testClass = testClass;
 		return this;
 	}
 
-    public void execute() {
-        for (TestClassContext testClassContext : testContext.getTestClassContexts()) {
-            for (TestMethodContext testMethodContext : testClassContext.getTestMethodContexts()) {
-            	executeMethod(testMethodContext.getTestMethod());
-            }
-		}
-    }
-
-	private void executeMethod(Method testMethod) {
-		try {
-			RuntimeUtils.invokeTestMethod(testMethod);
-		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			e.printStackTrace();
-		}	
+	public TestContext configure() {
+		TestContextImpl testContextImpl = new TestContextImpl();
+		testContextImpl.addTestClassContext(buildTestClassContext(new TestClassContextImpl(), this.testClass));
+		return testContextImpl;
 	}
+
+	private TestClassContext buildTestClassContext(TestClassContextImpl testClassContext, Class<?> testClass) {
+		Collection<Method> testMethods = ReflectionUtils.getTestMethods(testClass);
+		for (Method method : testMethods) {
+			testClassContext.addTestContext(new TestMethodContextImpl(method));
+		}
+		return testClassContext;
+	}
+
 }

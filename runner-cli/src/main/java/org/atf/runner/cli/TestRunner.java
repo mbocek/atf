@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.atf.core;
+package org.atf.runner.cli;
 
 import static org.atf.core.utils.Asserts.checkForNextItem;
 

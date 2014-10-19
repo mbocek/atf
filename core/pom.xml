@@ -13,32 +13,6 @@
 	<artifactId>core</artifactId>
 	<name>ATF: Core</name>
 	
-	<build>
-	    <plugins>
-	        <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>java</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <mainClass>org.atf.core.TestRunner</mainClass>
-                    <classpathScope>test</classpathScope>
-                    <killAfter>-1</killAfter>
-                    <arguments>
-                        <argument>-c</argument>
-                        <argument>sample.SampleTest</argument>
-                  </arguments>
-                </configuration>
-            </plugin>
-	    </plugins>
-	</build>
-	
 	<dependencies>
 		<dependency>
 			<groupId>org.atf</groupId>
