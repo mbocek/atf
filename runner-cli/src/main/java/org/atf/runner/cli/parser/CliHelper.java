@@ -18,6 +18,10 @@
  */
 package org.atf.runner.cli.parser;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * @author Michal Bocek
  * @since 1.0.0
@@ -28,9 +32,20 @@ public final class CliHelper {
 	}
 	
 	public static void showHelp() {
+		List<String> cmdLine  = new ArrayList<String>(); 
 		for (Command command : Command.values()) {
 			Option option = command.getOption();
-			String message = String.format("%s\t%s\t\t%s", option.getShortParam(), option.getLongParam(), option.getDescription());
+			String commandLine = option.isMandatory() ? option.getShortParam() : "[" + option.getShortParam() + "] ";
+			commandLine += option.isRequiredParam() ? "<"+ option.getParamDescription() + ">" : "";
+			cmdLine.add(commandLine);
+		}
+		
+		Collections.sort(cmdLine);
+		System.out.println(cmdLine);
+		
+		for (Command command : Command.values()) {
+			Option option = command.getOption();
+			String message = String.format("\t%s\t%s\t\t%s", option.getShortParam(), option.getLongParam(), option.getDescription());
 			System.out.println(message);			
 		}
 	}

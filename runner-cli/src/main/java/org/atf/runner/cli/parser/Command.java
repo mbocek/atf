@@ -22,7 +22,8 @@ package org.atf.runner.cli.parser;
  * The Enum Command.
  */
 public enum Command {
-	CLASS(new Option().shortParam("-c").longParam("--class").description("Class name").requiredParam());
+	CLASS(new Option().shortParam("-c").longParam("--class").description("Class name").paramDescription("class name").requiredParam()),
+	PACKAGE(new Option().shortParam("-p").longParam("--package").description("Package name").paramDescription("package name").requiredParam());
 	
 	private Option option;
 

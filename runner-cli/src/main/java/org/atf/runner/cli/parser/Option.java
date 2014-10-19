@@ -27,6 +27,7 @@ public class Option {
 	private String shortParam;
 	private String longParam;
 	private String description;
+	private String paramDescription;
 	private boolean mandatory;
 	private boolean requiredParam;
 	
@@ -47,6 +48,11 @@ public class Option {
 	
 	public Option description(String description) {
 		this.description = description;
+		return this;
+	}
+	
+	public Option paramDescription(String paramDescription) {
+		this.paramDescription = paramDescription;
 		return this;
 	}
 	
@@ -72,6 +78,10 @@ public class Option {
 		return description;
 	}
 	
+	public String getParamDescription() {
+		return paramDescription;
+	}
+	
 	public boolean isMandatory() {
 		return mandatory;
 	}
@@ -83,6 +93,7 @@ public class Option {
 	@Override
 	public String toString() {
 		return "Option [shortParam=" + shortParam + ", longParam=" + longParam + ", description=" + description
-				+ ", mandatory=" + mandatory + ", requiredParam=" + requiredParam + "]";
+				+ ", paramDescription=" + paramDescription + ", mandatory=" + mandatory + ", requiredParam="
+				+ requiredParam + "]";
 	}
 }
