@@ -26,6 +26,8 @@ import java.util.List;
 
 import org.atf.core.api.TestContext;
 import org.atf.core.utils.ReflectionUtils;
+import org.atf.runner.cli.logger.Logger;
+import org.atf.runner.cli.logger.LoggerFactory;
 import org.atf.runner.cli.parser.CliHelper;
 import org.atf.runner.cli.parser.Command;
 
@@ -34,6 +36,7 @@ import org.atf.runner.cli.parser.Command;
  * @since 1.0.0
  */
 public class TestRunner {
+	private static Logger logger = LoggerFactory.getLogger();
 
 	private String className;
 	private static TestRunner self = new TestRunner();
@@ -42,8 +45,8 @@ public class TestRunner {
 		boolean skipExecution = false;
 		try {
 			self.initialize(Arrays.asList(args));
-		} catch (Throwable e) {
-			System.err.println("Error: " + e.getMessage());
+		} catch (RuntimeException e) {
+			logger.error("Error: %s", e.getMessage());
 			CliHelper.showHelp();
 			skipExecution = true;
 		}
@@ -63,6 +66,12 @@ public class TestRunner {
 			case CLASS:
 				if (command.getOption().isRequiredParam()) {
 					checkForNextItem("Missing class name", iterator);
+				}
+				this.className = iterator.next();
+				break;
+			case PACKAGE:
+				if (command.getOption().isRequiredParam()) {
+					checkForNextItem("Missing package", iterator);
 				}
 				this.className = iterator.next();
 				break;

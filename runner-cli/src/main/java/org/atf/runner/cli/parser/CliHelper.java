@@ -22,12 +22,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.atf.runner.cli.logger.Logger;
+import org.atf.runner.cli.logger.LoggerFactory;
+
 /**
  * @author Michal Bocek
  * @since 1.0.0
  */
 public final class CliHelper {
 
+	private static Logger logger = LoggerFactory.getLogger();
+	
 	private CliHelper() {
 	}
 	
@@ -45,12 +50,12 @@ public final class CliHelper {
 		for (String command : cmdLine) {
 			resultCommandLine += command + " ";
 		}
-		System.out.println(resultCommandLine);
+		logger.info(resultCommandLine);
 		
 		for (Command command : Command.values()) {
 			Option option = command.getOption();
 			String message = String.format("\t%-5s%-15s%s", option.getShortParam(), option.getLongParam(), option.getDescription());
-			System.out.println(message);			
+			logger.info(message);			
 		}
 	}
 }
