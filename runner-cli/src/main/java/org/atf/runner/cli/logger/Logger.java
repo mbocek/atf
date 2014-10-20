@@ -19,6 +19,8 @@
 package org.atf.runner.cli.logger;
 
 /**
+ * The Interface Logger.
+ *
  * @author Michal Bocek
  * @since 1.0.0
  */
