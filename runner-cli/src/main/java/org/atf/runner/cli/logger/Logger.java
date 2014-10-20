@@ -26,9 +26,33 @@ package org.atf.runner.cli.logger;
  */
 public interface Logger {
 	
+	/**
+	 * Error.
+	 *
+	 * @param message the message
+	 */
 	void error(String message);
+	
+	/**
+	 * Error.
+	 *
+	 * @param message the message
+	 * @param params the params
+	 */
 	void error(String message, Object...params);
 	
+	/**
+	 * Info.
+	 *
+	 * @param message the message
+	 */
 	void info(String message);
+	
+	/**
+	 * Info.
+	 *
+	 * @param message the message
+	 * @param params the params
+	 */
 	void info(String message, Object...params);
 }
