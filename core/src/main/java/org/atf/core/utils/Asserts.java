@@ -52,7 +52,7 @@ public final class Asserts {
 		if (exception instanceof ClassNotFoundException) {
 			throw new IllegalStateException(message, exception);
 		} else {
-			throw new RuntimeException(message, exception);
+			throw new IllegalStateException(message, exception);
 		}
 	}
 }

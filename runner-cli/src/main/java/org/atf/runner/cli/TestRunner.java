@@ -35,7 +35,7 @@ import org.atf.runner.cli.parser.Command;
  * @author Michal Bocek
  * @since 1.0.0
  */
-public class TestRunner {
+public final class TestRunner {
 	private static Logger logger = LoggerFactory.getLogger();
 
 	private String className;
@@ -59,7 +59,7 @@ public class TestRunner {
 		}
 	}
 
-	private void initialize(List<String> args) {
+	public void initialize(List<String> args) {
 		Iterator<String> iterator = args.iterator();
 		while(iterator.hasNext()) {
 			String stringCommand = iterator.next();
@@ -81,13 +81,13 @@ public class TestRunner {
 		}
 	}
 
-	private TestContext configure() {
+	public TestContext configure() {
 		return new TestConfigurer()
 						.withClass(ReflectionUtils.classForName(this.className))
 		    			.configure();
 	}
 
-	private void excute(TestContext testContext) {
+	public void excute(TestContext testContext) {
 	    new TestExecutor().withTestContext(testContext).execute();
 	}
 }
