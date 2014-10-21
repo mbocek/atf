@@ -42,6 +42,15 @@ public class SimpleLogger implements Logger {
 
 	/* 
 	 * (non-Javadoc)
+	 * @see org.atf.runner.cli.logger.Logger#error(java.lang.String, java.lang.Throwable)
+	 */
+	@Override
+	public void error(String message, Throwable e) {
+		doPrintErrorStacktrace(message, e);
+	}
+
+	/* 
+	 * (non-Javadoc)
 	 * @see org.atf.runner.cli.logger.Logger#flatEerror(java.lang.String, java.lang.Object[])
 	 */
 	@Override
@@ -56,6 +65,15 @@ public class SimpleLogger implements Logger {
 	@Override
 	public void info(String message) {
 		doPrintInfo(message, null);
+	}
+
+	/* 
+	 * (non-Javadoc)
+	 * @see org.atf.runner.cli.logger.Logger#info(java.lang.String, java.lang.Throwable)
+	 */
+	@Override
+	public void info(String message, Throwable e) {
+		doPrintInfoStacktrace(message, e);
 	}
 
 	/* 
@@ -75,6 +93,14 @@ public class SimpleLogger implements Logger {
 			stderr.flush();
 		}
 	}
+
+	private void doPrintErrorStacktrace(String message, Throwable throwable) {
+		synchronized (this) {
+			stderr.println(message);
+			throwable.printStackTrace(stderr);
+			stderr.flush();
+		}
+	}
 	
 	private void doPrintInfo(String message, Object[] params) {
 		String text = params == null ? message : String.format(message, params);
@@ -83,4 +109,13 @@ public class SimpleLogger implements Logger {
 			stderr.flush();
 		}
 	}
+	
+	private void doPrintInfoStacktrace(String message, Throwable throwable) {
+		synchronized (this) {
+			stderr.println(message);
+			throwable.printStackTrace(stderr);
+			stderr.flush();
+		}
+	}
+	
 }

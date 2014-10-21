@@ -32,6 +32,14 @@ public interface Logger {
 	 * @param message the message
 	 */
 	void error(String message);
+
+	/**
+	 * Error.
+	 *
+	 * @param message the message
+	 * @param e the e
+	 */
+	void error(String message, Throwable e);
 	
 	/**
 	 * Error.
@@ -48,6 +56,14 @@ public interface Logger {
 	 */
 	void info(String message);
 	
+	/**
+	 * Info.
+	 *
+	 * @param message the message
+	 * @param e the e
+	 */
+	void info(String message, Throwable e);
+
 	/**
 	 * Info.
 	 *

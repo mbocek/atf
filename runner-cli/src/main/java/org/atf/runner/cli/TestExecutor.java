@@ -25,12 +25,15 @@ import org.atf.core.api.TestClassContext;
 import org.atf.core.api.TestContext;
 import org.atf.core.api.TestMethodContext;
 import org.atf.core.utils.RuntimeUtils;
+import org.atf.runner.cli.logger.Logger;
+import org.atf.runner.cli.logger.LoggerFactory;
 
 /**
  * @author Michal Bocek
  * @since 1.0.0
  */
 public class TestExecutor {
+	private static Logger logger = LoggerFactory.getLogger();
 
     private TestContext testContext;
 
@@ -51,7 +54,7 @@ public class TestExecutor {
 		try {
 			RuntimeUtils.invokeTestMethod(testMethod);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			e.printStackTrace();
+			logger.error("Execution problem", e);
 		}	
 	}
 }
