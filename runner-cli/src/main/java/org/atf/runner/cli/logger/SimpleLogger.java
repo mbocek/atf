@@ -28,7 +28,7 @@ import java.io.PrintStream;
  */
 public class SimpleLogger implements Logger {
 
-	private static final String SQUID_S1148 = "squid:S1148";
+	private static final String SQUID_S1148 = "S1148";
 	
 	private static PrintStream stdout = System.out;
 	private static PrintStream stderr = System.err;
