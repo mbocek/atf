@@ -18,8 +18,10 @@
  */
 package org.atf.runner.cli.parser;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import org.atf.runner.cli.logger.Logger;
@@ -54,8 +56,14 @@ public final class CliHelper {
 		
 		for (Command command : Command.values()) {
 			Option option = command.getOption();
-			String message = String.format("\t%-5s%-15s%s", option.getShortParam(), option.getLongParam(), option.getDescription());
+			String message = String.format("  %-5s%-15s%s", option.getShortParam(), option.getLongParam(), option.getDescription());
 			logger.info(message);			
 		}
+	}
+
+	public static void showBanner() {
+		logger.info("ATF another test framework");
+		logger.info("  Current date: %1$tF %1$tT", new Date());
+		logger.info("");
 	}
 }

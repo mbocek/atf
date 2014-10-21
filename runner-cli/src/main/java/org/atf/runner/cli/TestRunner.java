@@ -39,12 +39,14 @@ public class TestRunner {
 	private static Logger logger = LoggerFactory.getLogger();
 
 	private String className;
-	private static TestRunner self = new TestRunner();
 	
 	public static void main(String[] args) {
+		CliHelper.showBanner();
 		boolean skipExecution = false;
+		TestRunner testRunner = new TestRunner();
+		
 		try {
-			self.initialize(Arrays.asList(args));
+			testRunner.initialize(Arrays.asList(args));
 		} catch (RuntimeException e) {
 			logger.error("Error: %s", e.getMessage());
 			CliHelper.showHelp();
@@ -52,8 +54,8 @@ public class TestRunner {
 		}
 
 		if (!skipExecution) {
-			TestContext testContext = self.configure();
-			self.excute(testContext);
+			TestContext testContext = testRunner.configure();
+			testRunner.excute(testContext);
 		}
 	}
 

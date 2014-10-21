@@ -72,6 +72,7 @@ public class SimpleLogger implements Logger {
 		String text = params == null ? message : String.format(message, params);
 		synchronized (this) {
 			stderr.println(text);
+			stderr.flush();
 		}
 	}
 	
@@ -79,6 +80,7 @@ public class SimpleLogger implements Logger {
 		String text = params == null ? message : String.format(message, params);
 		synchronized (this) {
 			stdout.println(text);
+			stderr.flush();
 		}
 	}
 }
