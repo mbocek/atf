@@ -28,6 +28,8 @@ import java.io.PrintStream;
  */
 public class SimpleLogger implements Logger {
 
+	private static final String SQUID_S1148 = "squid:S1148";
+	
 	private static PrintStream stdout = System.out;
 	private static PrintStream stderr = System.err;
 	
@@ -94,6 +96,7 @@ public class SimpleLogger implements Logger {
 		}
 	}
 
+	@SuppressWarnings(SQUID_S1148)
 	private void doPrintErrorStacktrace(String message, Throwable throwable) {
 		synchronized (this) {
 			stderr.println(message);
@@ -110,6 +113,7 @@ public class SimpleLogger implements Logger {
 		}
 	}
 	
+	@SuppressWarnings(SQUID_S1148)
 	private void doPrintInfoStacktrace(String message, Throwable throwable) {
 		synchronized (this) {
 			stderr.println(message);
