@@ -36,7 +36,8 @@ import org.atf.runner.cli.parser.Command;
  * @since 1.0.0
  */
 public final class TestRunner {
-	private static Logger logger = LoggerFactory.getLogger();
+	@SuppressWarnings("all")
+	private static final Logger logger = LoggerFactory.getLogger();
 
 	private String className;
 	
@@ -48,7 +49,7 @@ public final class TestRunner {
 		try {
 			testRunner.initialize(Arrays.asList(args));
 		} catch (RuntimeException e) {
-			logger.error("Error: %s", e.getMessage());
+			logger.error("Initialisation problem", e);
 			CliHelper.showHelp();
 			skipExecution = true;
 		}
