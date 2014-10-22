@@ -94,6 +94,7 @@ public class SimpleLogger implements Logger {
 		}
 	}
 
+	@SuppressWarnings("all")
 	private void doPrintErrorStacktrace(String message, Throwable throwable) {
 		synchronized (this) {
 			stderr.println(message);
@@ -110,6 +111,7 @@ public class SimpleLogger implements Logger {
 		}
 	}
 	
+	@SuppressWarnings("all")
 	private void doPrintInfoStacktrace(String message, Throwable throwable) {
 		synchronized (this) {
 			stderr.println(message);
