@@ -18,7 +18,6 @@
  */
 package org.atf.runner.cli;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import org.atf.core.api.TestClassContext;
@@ -51,10 +50,6 @@ public class TestExecutor {
     }
 
 	private void executeMethod(Method testMethod) {
-		try {
-			RuntimeUtils.invokeTestMethod(testMethod);
-		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			logger.error("Execution problem", e);
-		}	
+		RuntimeUtils.invokeTestMethod(testMethod);
 	}
 }

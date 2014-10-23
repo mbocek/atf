@@ -16,23 +16,34 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.atf.core.executor;
-
-import org.atf.core.api.TestMethodContext;
+package org.atf.core.api;
 
 /**
+ * The Class AtfExecutionException.
+ *
  * @author Michal Bocek
  * @since 1.0.0
  */
-public abstract class Task implements Runnable {
-	
-	private TestMethodContext context;
-	
-	public Task(TestMethodContext context) {
-		this.context = context;
+public class AtfExecutionException extends AtfRuntimeException {
+
+	private static final long serialVersionUID = 2047475854995008002L;
+
+	/**
+	 * Instantiates a new atf execution exception.
+	 *
+	 * @param message the message
+	 */
+	public AtfExecutionException(String message) {
+		super(message);
 	}
-	
-	public String getThreadName() {
-		return context.getName();
+
+	/**
+	 * Instantiates a new atf execution exception.
+	 *
+	 * @param message the message
+	 * @param cause the cause
+	 */
+	public AtfExecutionException(String message, Throwable cause) {
+		super(message, cause);
 	}
 }

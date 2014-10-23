@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.atf.core.executor;
+package org.atf.core.execution;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;

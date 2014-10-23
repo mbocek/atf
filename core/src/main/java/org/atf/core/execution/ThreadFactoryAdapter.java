@@ -16,29 +16,34 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.atf.core.utils;
+package org.atf.core.execution;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-import org.atf.core.api.AtfExecutionException;
+import java.util.concurrent.ThreadFactory;
 
 /**
+ * The Class ThreadFactoryAdapter.
+ *
  * @author Michal Bocek
  * @since 1.0.0
  */
-public final class RuntimeUtils {
+public class ThreadFactoryAdapter implements ThreadFactory {
 
-	private RuntimeUtils() {
+	private ThreadGroup threadGroup;
+
+	public ThreadFactoryAdapter(ThreadGroup threadGroup) {
+		this.threadGroup = threadGroup;
 	}
-
-	public static void invokeTestMethod(Method testMethod) {
-		Object testObject;
-		try {
-			testObject = testMethod.getDeclaringClass().newInstance();
-			testMethod.invoke(testObject, new Object[] {});
-		} catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-			throw new AtfExecutionException("TestMethod invocation problem", e);
+	
+	@Override
+	public Thread newThread(Runnable runnable) {
+		Thread newThread;
+		if (runnable instanceof Task) {
+			Task task = (Task) runnable;
+			newThread = new Thread(threadGroup, runnable, task.getThreadName());
+		} else {
+			throw new IllegalStateException("Internal error: Only tasks can be run!");
 		}
+		return newThread;
 	}
+
 }

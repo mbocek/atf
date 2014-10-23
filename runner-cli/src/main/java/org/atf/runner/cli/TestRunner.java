@@ -36,10 +36,10 @@ import org.atf.runner.cli.parser.Command;
  * @since 1.0.0
  */
 public final class TestRunner {
-	@SuppressWarnings("all")
-	private static final Logger logger = LoggerFactory.getLogger();
+	private static final Logger logger = LoggerFactory.getLogger(); // NOSONAR
 
 	private String className;
+	private String packageName;
 	
 	public static void main(String[] args) {
 		CliHelper.showBanner();
@@ -67,18 +67,22 @@ public final class TestRunner {
 			Command command = Command.commandByName(stringCommand);
 			switch (command) {
 			case CLASS:
-				if (command.getOption().isRequiredParam()) {
-					checkForNextItem("Missing class name", iterator);
-				}
+				validateCommand("Missing class name", command, iterator);
 				this.className = iterator.next();
 				break;
 			case PACKAGE:
-				if (command.getOption().isRequiredParam()) {
-					checkForNextItem("Missing package", iterator);
-				}
-				this.className = iterator.next();
+				validateCommand("Missing package", command, iterator);
+				this.packageName = iterator.next();
 				break;
+			default:
+			    throw new IllegalStateException("Undefined command line command!");				
 			}
+		}
+	}
+
+	private void validateCommand(String string, Command command, Iterator<String> iterator) {
+		if (command.getOption().isRequiredParam()) {
+			checkForNextItem("Missing class name", iterator);
 		}
 	}
 

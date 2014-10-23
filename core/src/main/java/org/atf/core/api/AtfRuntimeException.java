@@ -16,29 +16,34 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.atf.core.utils;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-import org.atf.core.api.AtfExecutionException;
+package org.atf.core.api;
 
 /**
+ * The Class AtfRuntimeException.
+ *
  * @author Michal Bocek
  * @since 1.0.0
  */
-public final class RuntimeUtils {
+public class AtfRuntimeException extends RuntimeException {
 
-	private RuntimeUtils() {
+	private static final long serialVersionUID = -6311767740813341981L;
+
+	/**
+	 * Instantiates a new atf runtime exception.
+	 *
+	 * @param message the message
+	 */
+	public AtfRuntimeException(String message) {
+		super(message);
 	}
 
-	public static void invokeTestMethod(Method testMethod) {
-		Object testObject;
-		try {
-			testObject = testMethod.getDeclaringClass().newInstance();
-			testMethod.invoke(testObject, new Object[] {});
-		} catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-			throw new AtfExecutionException("TestMethod invocation problem", e);
-		}
+	/**
+	 * Instantiates a new atf runtime exception.
+	 *
+	 * @param message the message
+	 * @param cause the cause
+	 */
+	public AtfRuntimeException(String message, Throwable cause) {
+		super(message, cause);
 	}
 }
