@@ -28,8 +28,8 @@ import java.io.PrintStream;
  */
 public class SimpleLogger implements Logger {
 
-	private static PrintStream stdout = System.out;
-	private static PrintStream stderr = System.err;
+	private static PrintStream stdout = System.out; // NOSONAR
+	private static PrintStream stderr = System.err; // NOSONAR
 	
 	/* 
 	 * (non-Javadoc)
