@@ -21,6 +21,7 @@ package org.atf.core.execution;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Michal Bocek
@@ -38,9 +39,17 @@ public class ExecutorAdapter {
 	}
 	
 	public void forceStop() {
-		List<Runnable> threads = executorService.shutdownNow();
-		for (Runnable runnable : threads) {
-			
-		}		
+		executorService.shutdown();
+		try {
+			executorService.awaitTermination(10, TimeUnit.MICROSECONDS);
+			List<Runnable> threads = executorService.shutdownNow();
+			for (Runnable thread : threads) {
+				Task task = (Task) thread;
+				
+			}
+		} catch (final InterruptedException e) {
+			executorService.shutdownNow();
+			Thread.currentThread().interrupt();
+		}
 	}
 }

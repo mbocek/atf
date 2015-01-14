@@ -19,6 +19,7 @@
 package org.atf.core.execution;
 
 import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * The Class ThreadFactoryAdapter.
@@ -27,8 +28,10 @@ import java.util.concurrent.ThreadFactory;
  * @since 1.0.0
  */
 public class ThreadFactoryAdapter implements ThreadFactory {
-
+	
+	private static String ATF_THREAD_NAME = "atf-thread-";
 	private ThreadGroup threadGroup;
+	private AtomicInteger counter = new AtomicInteger();
 
 	public ThreadFactoryAdapter(ThreadGroup threadGroup) {
 		this.threadGroup = threadGroup;
@@ -36,13 +39,7 @@ public class ThreadFactoryAdapter implements ThreadFactory {
 	
 	@Override
 	public Thread newThread(Runnable runnable) {
-		Thread newThread;
-		if (runnable instanceof Task) {
-			Task task = (Task) runnable;
-			newThread = new Thread(threadGroup, runnable, task.getThreadName());
-		} else {
-			throw new IllegalStateException("Internal error: Only tasks can be run!");
-		}
+		Thread newThread = new Thread(threadGroup, runnable, ATF_THREAD_NAME + counter.getAndIncrement());
 		return newThread;
 	}
 

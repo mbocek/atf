@@ -33,6 +33,11 @@ public abstract class Task implements Runnable {
 	}
 	
 	public String getThreadName() {
-		return context.getName();
+		return Thread.currentThread().getName();
 	}
+	
+	public String getMethodName() {
+		return this.context.getName();
+	}
+	
 }
